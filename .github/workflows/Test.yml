@@ -12,12 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install ping utility
-        run: sudo apt-get install iputils-ping -y
+      - name: Install curl
+        run: sudo apt-get install curl -y
 
-      - name: Ping Domains
+      - name: Check Domain Connectivity
         run: |
           cat test_main.txt | while read -r line
           do
-            ping -c 4 $line
+            echo "Checking connectivity to $line"
+            curl --head --silent --fail $line
           done
